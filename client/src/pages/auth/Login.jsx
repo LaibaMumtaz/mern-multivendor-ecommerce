@@ -99,6 +99,14 @@ const Login = () => {
                         </div>
                     )}
 
+                    <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-2xl mb-8 text-sm text-indigo-800 shadow-inner">
+                         <strong>🎓 Project Demo Hint:</strong>
+                         <ul className="mt-1 list-disc list-inside space-y-0.5 opacity-80">
+                             <li><strong>Admin:</strong> admin@example.com <span className="text-xs">(Pass: admin123)</span></li>
+                             <li><strong>Vendor:</strong> tech@example.com <span className="text-xs">(Pass: admin123)</span></li>
+                         </ul>
+                    </div>
+
                     <form onSubmit={submitHandler} className="space-y-6">
                         <Input
                             label="Email Address"

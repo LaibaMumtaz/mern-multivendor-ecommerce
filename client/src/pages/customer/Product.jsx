@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShoppingCart, ArrowLeft, Star, ShieldCheck, Truck } from 'lucide-react';
 import { getProductDetailRequest, getProductDetailSuccess, getProductDetailFail } from '../../features/productSlice';
@@ -10,6 +10,7 @@ import Button from '../../components/common/Button';
 const ProductDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { product, loading, error } = useSelector((state) => state.products);
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -35,6 +36,10 @@ const ProductDetail = () => {
     }, [dispatch, id]);
 
     const addToCartHandler = () => {
+        if (!userInfo) {
+            navigate('/login');
+            return;
+        }
         dispatch(addToCart({
             productId: product._id,
             name: product.name,

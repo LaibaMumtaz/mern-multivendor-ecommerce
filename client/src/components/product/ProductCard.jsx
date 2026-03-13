@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Star, Heart } from 'lucide-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../features/cartSlice';
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.auth);
 
     const handleAddToCart = (e) => {
         e.preventDefault();
+        if (!userInfo) {
+            navigate('/login');
+            return;
+        }
         dispatch(addToCart({
             productId: product._id,
             name: product.name,
