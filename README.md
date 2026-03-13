@@ -1,119 +1,99 @@
-# AI-Powered Multi-Vendor E-Commerce Platform
+# MERN Multi-Vendor E-Commerce Platform
 
-A professional full-stack MERN (MongoDB, Express, React, Node.js) marketplace featuring multi-vendor support, secure Stripe payments, and an integrated AI-powered chatbot assistant.
+A professional, modern, full-stack multi-vendor e-commerce platform built with the MERN stack (MongoDB, Express, React, Node.js). It features automated multi-vendor capabilities, secure payments via Stripe, and an integrated AI-powered shopping assistant.
 
 ## 🚀 Features
 
 ### For Customers
-- **AI Shopping Assistant**: Interactive chatbot for product discovery and queries.
-- **Secure Checkout**: Integrated with Stripe for seamless and safe payments.
-- **Order Tracking**: Detailed purchase history and status updates.
-- **Modern UI**: Fully responsive design with glassmorphism and premium aesthetics.
+- **AI Shopping Assistant**: Interactive chatbot for seamless product discovery, recommendations, and queries.
+- **Secure Checkout**: Fully integrated with Stripe for safe, real-time payment processing.
+- **Order Management**: Detailed purchase history, order status updates, and tracking.
+- **Modern UI**: Fully responsive, beautifully crafted interface with premium aesthetics powered by Tailwind CSS.
 
 ### For Vendors
-- **Store Management**: Dedicated dashboard to track sales and products.
-- **Product Listing**: Easy-to-use form with multi-image Cloudinary upload support.
-- **Earnings Tracking**: Real-time stats on total sales and net revenue after commission.
+- **Store & Dashboard Management**: A dedicated dashboard to track sales, manage inventory, and oversee store performance.
+- **Product Management**: Easy-to-use forms for multi-image product listings powered by Cloudinary.
+- **Earnings & Analytics**: Real-time statistics on total sales, pending payments, and net revenue after commission.
 
 ### For Administrators
-- **Platform Oversight**: Control center for monitoring all users, products, and global revenue.
-- **User Moderation**: Activate or deactivate user accounts with a single click.
-- **Fee Management**: Automated 10% platform commission logic.
+- **Platform Oversight**: Centralized control center to monitor overall platform statistics, users, vendors, and global revenue.
+- **Account Management**: Moderate, activate, or suspend users/vendors with a single click.
+- **Commission System**: Automated platform fee deductions for each vendor sale.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18, Vite, TailwindCSS, Redux Toolkit, Lucide React.
-- **Backend**: Node.js, Express, MongoDB/Mongoose.
-- **Services**: 
-  - **Stripe**: Payment Gateway.
-  - **Cloudinary**: Image Cloud Storage.
-  - **OpenAI**: Natural Language Processing for Chatbot.
+### Frontend
+- React 18
+- Vite
+- Tailwind CSS
+- Redux Toolkit
+- Lucide React (Icons)
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+
+### Third-Party Services
+- **Stripe**: Handles secure credit card processing.
+- **Cloudinary**: Cloud-based storage for product images.
+- **OpenAI**: Powers the Natural Language conversational chatbot.
 
 ---
 
 ## ⚙️ Setup Instructions
 
 ### Prerequisites
+Before running the application locally, make sure you have:
 - Node.js (v16+)
-- MongoDB (Local or Atlas)
-- Stripe, Cloudinary, and OpenAI accounts.
+- MongoDB running locally or a MongoDB Atlas URI
+- Accounts created for: **Stripe**, **Cloudinary**, and **OpenAI**
 
 ### 1. Clone the repository
 ```bash
-git clone <your-repo-url>
-cd ai-multi-vendor-ecommerce
+git clone https://github.com/LaibaMumtaz/mern-multivendor-ecommerce.git
+cd mern-multivendor-ecommerce
 ```
 
 ### 2. Backend Configuration
-Create a `.env` file in the `server/` directory:
+Create a `.env` file in the `server/` directory and populate the environment variables. **Never share or commit these keys:**
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
+MONGO_URI=your_mongodb_cluster_uri
+JWT_SECRET=your_jwt_secret_string
 STRIPE_SECRET_KEY=your_stripe_secret
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-OPENAI_API_KEY=your_openai_key
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+OPENAI_API_KEY=your_openai_api_key
 FRONTEND_URL=http://localhost:5173
 PLATFORM_COMMISSION_RATE=0.1
 ```
 
-### 3. Frontend Configuration
-The frontend automatically connects to `http://localhost:5000/api`. Ensure current URL matches in `client/src/api/axios.js`.
+### 3. Install Dependencies & Run
+Start both the server and the client to run the platform locally.
 
-### 4. Install Dependencies & Run
-**Backend:**
+**Run the Backend (Server):**
 ```bash
 cd server
 npm install
-npm start
+npm run dev
 ```
 
-**Frontend:**
+**Run the Frontend (Client):**
+Open a new terminal session, then:
 ```bash
 cd client
 npm install
 npm run dev
 ```
+The frontend will automatically run on `http://localhost:5173` and connect to the Express server at `http://localhost:5000/api`.
 
 ---
 
-## 🛠️ How to Get it Working (MANDATORY STEPS)
-
-If you haven't given me your keys yet, it's because I've set it up for YOU to safely paste them yourself in the code. **Do not share your keys with anyone!**
-
-### Step 1: Fill the `.env` File
-Open the file at `server/.env` and paste your keys from these websites:
-1. **Cloudinary**: [Go to Cloudinary](https://cloudinary.com/) (Free) -> Copy `Cloud Name`, `API Key`, and `API Secret`.
-2. **Stripe**: [Go to Stripe](https://stripe.com/) (Free/Test mode) -> Get your `Secret Key`.
-3. **OpenAI**: [Go to OpenAI API](https://platform.openai.com/) -> Create an `API Key`.
-
-### Step 2: Set up MongoDB
-If you don't have MongoDB installed, I recommend using **MongoDB Atlas** (Free). Once you create a cluster, paste the connection string in `MONGO_URI` in the `server/.env` file.
-
-### Step 3: Start the Backend
-Open a terminal in the folder:
-```powershell
-cd server
-npm install
-npm run dev
-```
-
-### Step 4: Start the Frontend
-Open ANOTHER terminal:
-```powershell
-cd client
-npm install
-npm run dev
-```
-
-### Step 5: Connecting to GitHub
-To make this public:
-1. Create a NEW repository on GitHub.
-2. Copy the command `git remote add origin https://github.com/yourusername/reponame.git`.
-3. Run that command in your project folder, then run `git push -u origin main`.
-
+## 🔒 Security Notice
+- The `.env` files are ignored via `.gitignore` and **must never be pushed to your GitHub repository** to avoid exposing critical API keys. 
+- Ensure proper configuration inside the `.env` file for all services to work flawlessly.
