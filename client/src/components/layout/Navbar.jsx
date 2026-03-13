@@ -87,15 +87,16 @@ const Navbar = () => {
                 </Link>
 
                 {/* Search Bar */}
-                <form onSubmit={handleSearch} className="hidden md:flex flex-grow max-w-xl relative">
+                <form onSubmit={handleSearch} className="hidden md:flex flex-grow max-w-xl mx-8 relative group">
+                    <div className="absolute inset-0 bg-indigo-500/5 rounded-2xl blur-md group-focus-within:bg-indigo-500/10 transition duration-500"></div>
                     <input
                         type="text"
-                        placeholder="Search products..."
-                        className="w-full bg-gray-100/50 border border-gray-100 rounded-2xl py-2 pl-4 pr-10 focus:outline-none focus:ring-2 ring-indigo-500/20 transition"
+                        placeholder="Search for amazing products..."
+                        className="w-full bg-white/80 backdrop-blur-md border border-gray-200/60 rounded-2xl py-2.5 pl-6 pr-12 focus:outline-none focus:ring-4 ring-indigo-500/20 focus:border-indigo-400 shadow-[0_2px_10px_rgb(0,0,0,0.02)] focus:shadow-[0_8px_30px_rgb(79,70,229,0.15)] transition-all duration-500 text-sm font-medium text-gray-800 placeholder-gray-400 relative z-10"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600">
+                    <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition-colors duration-300 z-20">
                         <Search size={18} />
                     </button>
                 </form>
@@ -272,15 +273,15 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {isOpen && (
                 <div className="md:hidden mt-4 pb-4">
-                    <form onSubmit={handleSearch} className="relative mb-4">
+                    <form onSubmit={handleSearch} className="relative mb-6 group">
                         <input
                             type="text"
-                            placeholder="Search products..."
-                            className="w-full bg-gray-100 rounded-xl py-2 pl-4 pr-10 focus:outline-none"
+                            placeholder="Search for amazing products..."
+                            className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-5 pr-12 focus:outline-none focus:ring-4 ring-indigo-500/20 focus:border-indigo-400 shadow-sm focus:shadow-xl transition-all duration-300 text-sm font-medium text-gray-800 placeholder-gray-400"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition-colors">
                             <Search size={18} />
                         </button>
                     </form>
