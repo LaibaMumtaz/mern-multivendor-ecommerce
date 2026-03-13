@@ -78,7 +78,7 @@ const SellerLanding = () => {
                     <Link to="/register">
                         <Button className="px-12 py-5 rounded-2xl">Create Seller Account</Button>
                     </Link>
-                    <Link to="/auth/login">
+                    <Link to="/login">
                         <button className="px-12 py-5 rounded-2xl border-2 border-gray-200 font-bold hover:bg-gray-50 transition">
                             Login as Vendor
                         </button>

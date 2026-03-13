@@ -21,25 +21,38 @@ const Home = () => {
         const params = new URLSearchParams(location.search);
         const urlCategory = params.get('category');
         const urlSearch = params.get('search');
-        if (urlCategory) setActiveCategory(urlCategory);
-        if (urlSearch) setSearchTerm(urlSearch);
-        else if (!urlCategory) setSearchTerm('');
+        
+        if (urlCategory) {
+            setActiveCategory(urlCategory);
+            setSearchTerm('');
+            setTimeout(() => document.getElementById('products-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        } else if (urlSearch) {
+            setSearchTerm(urlSearch);
+            setActiveCategory('All');
+            setTimeout(() => document.getElementById('products-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        } else {
+            setActiveCategory('All');
+            setSearchTerm('');
+        }
 
-        const fetchProducts = async () => {
-            dispatch(getProductsRequest());
-            try {
-                const { data } = await API.get('/products');
-                dispatch(getProductsSuccess(data));
-            } catch (err) {
-                dispatch(getProductsFail(err.response?.data?.message || err.message));
-            }
-        };
-        fetchProducts();
-    }, [dispatch, location.search]);
+        // Only fetch if products are empty to prevent unnecessary network requests on every search
+        if (products.length === 0) {
+            const fetchProducts = async () => {
+                dispatch(getProductsRequest());
+                try {
+                    const { data } = await API.get('/products');
+                    dispatch(getProductsSuccess(data));
+                } catch (err) {
+                    dispatch(getProductsFail(err.response?.data?.message || err.message));
+                }
+            };
+            fetchProducts();
+        }
+    }, [dispatch, location.search, products.length]);
 
     const handleCategoryClick = (cat) => {
         setActiveCategory(cat);
-        // Smooth scroll to products grid
+        setSearchTerm(''); // Clear search when manual category is clicked
         setTimeout(() => {
             document.getElementById('products-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);

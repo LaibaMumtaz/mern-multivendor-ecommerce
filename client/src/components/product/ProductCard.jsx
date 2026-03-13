@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Star, Heart } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -15,6 +16,13 @@ const ProductCard = ({ product }) => {
             image: product.images[0],
             qty: 1
         }));
+    };
+
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        setIsLiked(!isLiked);
     };
 
     return (
@@ -40,8 +48,11 @@ const ProductCard = ({ product }) => {
                     ) : null}
                 </div>
 
-                <button className="absolute top-4 right-4 p-2.5 bg-white/80 backdrop-blur-md rounded-full text-gray-900 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-red-500 shadow-xl">
-                    <Heart size={18} />
+                <button 
+                    onClick={handleLike}
+                    className={`absolute top-4 right-4 p-2.5 backdrop-blur-md rounded-full transition-all duration-300 shadow-xl ${isLiked ? 'bg-white text-red-500 opacity-100 translate-y-0' : 'bg-white/80 text-gray-900 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 hover:bg-white hover:text-red-500'}`}
+                >
+                    <Heart size={18} fill={isLiked ? 'currentColor' : 'none'} />
                 </button>
 
                 <div className="absolute inset-x-4 bottom-4 translate-y-12 group-hover:translate-y-0 transition-transform duration-500">
