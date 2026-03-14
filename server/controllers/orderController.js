@@ -93,7 +93,11 @@ const addOrderItems = async (req, res) => {
         createdOrder.stripeSessionId = session.id;
         await createdOrder.save();
 
-        res.status(201).json({ order: createdOrder, url: session.url });
+        res.status(201).json({
+            order: createdOrder,
+            url: session.url,
+            sessionUrl: session.url,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

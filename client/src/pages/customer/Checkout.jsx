@@ -6,7 +6,10 @@ import API from '../../api/axios';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 const Checkout = () => {
-    const { cartItems, shippingAddress } = useSelector((state) => state.cart);
+    const cartState = useSelector((state) => state.cart || {});
+    const cartItems = cartState.cartItems || [];
+    const shippingAddress = cartState.shippingAddress || {};
+
     const [address, setAddress] = useState(shippingAddress.address || '');
     const [city, setCity] = useState(shippingAddress.city || '');
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
@@ -20,6 +23,31 @@ const Checkout = () => {
             navigate('/cart');
         }
     }, [cartItems, navigate]);
+
+    // Auto-fill postal code + country for common city entries
+    useEffect(() => {
+        const cityInfo = {
+            islamabad: { postalCode: '44000', country: 'Pakistan' },
+            lahore: { postalCode: '54000', country: 'Pakistan' },
+            karachi: { postalCode: '74200', country: 'Pakistan' },
+            'new york': { postalCode: '10001', country: 'United States' },
+            london: { postalCode: 'SW1A 1AA', country: 'United Kingdom' },
+            dubai: { postalCode: '00000', country: 'United Arab Emirates' },
+            mumbai: { postalCode: '400001', country: 'India' },
+            delhi: { postalCode: '110001', country: 'India' },
+            sydney: { postalCode: '2000', country: 'Australia' },
+            toronto: { postalCode: 'M5H 2N2', country: 'Canada' },
+            tokyo: { postalCode: '100-0001', country: 'Japan' },
+            paris: { postalCode: '75000', country: 'France' },
+        };
+
+        const normalized = city.trim().toLowerCase();
+        const match = cityInfo[normalized];
+        if (match) {
+            setPostalCode(match.postalCode);
+            setCountry(match.country);
+        }
+    }, [city]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -38,8 +66,9 @@ const Checkout = () => {
             const { data } = await API.post('/orders', orderData);
 
             // Redirect to Stripe Checkout
-            if (data.sessionUrl) {
-                window.location.href = data.sessionUrl;
+            const redirectUrl = data.url || data.sessionUrl;
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
             } else {
                 alert('Order created, but payment session failed. Please contact support.');
             }
