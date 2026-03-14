@@ -1,0 +1,10 @@
+{
+  "name": "mern-multivendor-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "server-install": "npm install --prefix server",
+    "build": "npm run build --prefix client"
+  }
+}
