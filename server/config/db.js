@@ -6,7 +6,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`MongoDB Connection Error Detail: ${error.message}`);
-    
+
     if (error.message.includes('MongooseServerSelectionError') || error.message.includes('whitelist')) {
       console.error('\n--- MONGODB CONNECTION TIP ---');
       console.error('This error usually means your current IP address is not whitelisted in MongoDB Atlas.');
@@ -16,7 +16,7 @@ const connectDB = async () => {
       console.error('3. Click "Add IP Address" and select "ALLOW ACCESS FROM ANYWHERE" (0.0.0.0/0) or add your current IP.');
       console.error('4. Wait for it to become "Active" and restart your server.\n');
     }
-    
+
     process.exit(1);
   }
 };
