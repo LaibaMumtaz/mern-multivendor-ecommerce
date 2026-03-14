@@ -15,14 +15,16 @@ import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
-await connectDB();
-console.log('Database operation ready...');
+// Connect to DB immediately but don't block the file load (better for serverless)
+connectDB();
+console.log('Database initialization started...');
 
 const app = express();
 
 // CORS must come first — before rate limiter — so preflight requests get correct headers
+// CORS - Allow localhost and the Vercel production URL
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: ['http://localhost:5173', 'http://localhost:3000', 'https://mern-multivendor-ecommerce-rho.vercel.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
